@@ -4,6 +4,13 @@ DibiTech is a digital product marketplace web application where users can discov
 
 This repository contains the frontend application built with React and Vite.
 
+## Live Deployment
+
+- Frontend: https://dibitech-frontend-4wir.vercel.app
+- Backend API: https://dibitech-api.infinityfree.io
+
+> Note: The backend is currently deployed on a free hosting service. Some API requests may be affected by hosting limitations.
+
 ## Related Repository
 
 - Frontend Repository: This repository
