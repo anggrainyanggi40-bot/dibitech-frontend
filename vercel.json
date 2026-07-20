@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/:path*",
+      "destination": "https://dibitech-api.infinityfree.io/api/:path*"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
