@@ -16,10 +16,14 @@ function TrendingProducts() {
   useEffect(() => {
     const getProducts = async () => {
       try {
+        // Ambil 4 produk pertama untuk Trending
         const response = await apiclient.get("/products");
 
-        // Ambil 4 produk pertama untuk Trending
-        setProducts(response.data.data.slice(0, 4));
+        console.log("RESPONSE PRODUCTS:", response.data);
+
+        const productData = response.data.data ?? response.data;
+
+        setProducts(Array.isArray(productData) ? productData.slice(0, 4) : []);
       } catch (error) {
         console.error("Gagal mengambil produk:", error);
       }
