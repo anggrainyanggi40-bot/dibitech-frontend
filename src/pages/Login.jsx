@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+//import { Link, useNavigate } from "react-router-dom";
 import { FiEye, FiLock, FiMail } from "react-icons/fi";
 import { FcGoogle } from "react-icons/fc";
-import { useAuth } from "../context/AuthContext";
+//import { useAuth } from "../context/AuthContext";
 import AuthLayout from "../components/templates/AuthLayout";
 import Button from "../components/atoms/Button";
 import useLogin from "../hooks/useLogin";
 
 function Login() {
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   const [form, setForm] = useState({
     email: "",
@@ -18,7 +18,7 @@ function Login() {
   const [errors, setErrors] = useState({});
 
   const { login, loading, error: serverError } = useLogin();
-  const { login: saveAuth } = useAuth();
+  //const { login: saveAuth } = useAuth();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -58,14 +58,15 @@ function Login() {
     }
 
     try {
-      // 1. Kirim email dan password ke Laravel
       const data = await login(form.email, form.password);
 
-      // 2. Simpan hasil login ke AuthContext
-      saveAuth(data.token, data.user);
+      console.log("LOGIN DATA:", data);
 
-      // 3. Pindah ke homepage
-      navigate("/");
+      // sementara jangan simpan dulu
+      // saveAuth(data.token, data.user);
+
+      // sementara jangan redirect supaya console bisa dicek
+      // navigate("/");
     } catch (error) {
       console.log("Login gagal:", error);
     }
@@ -179,10 +180,10 @@ function Login() {
       <p className="mt-7 text-center text-xs text-slate-400">
         {" "}
         Don't have an account?{" "}
-        <Link to="/register" className="text-blue-400 hover:text-blue-300">
+        {/* <Link to="/register" className="text-blue-400 hover:text-blue-300">
           {" "}
           Register{" "}
-        </Link>{" "}
+        </Link>{" "} */}
       </p>{" "}
     </AuthLayout>
   );
