@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../molecules/ProductCard";
-import Client from "../../api/Client";
+import apiclient from "../../api/client";
 import { Link } from "react-router-dom";
 
 import product1 from "../../assets/images/Trending1.png";
@@ -16,7 +16,7 @@ function TrendingProducts() {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const response = await Client.get("/products");
+        const response = await apiclient.get("/products");
 
         // Ambil 4 produk pertama untuk Trending
         setProducts(response.data.data.slice(0, 4));

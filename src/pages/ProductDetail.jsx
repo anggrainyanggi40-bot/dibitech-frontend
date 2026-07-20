@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Client from "../api/Client";
+import apiclient from "../api/client";
 
 function ProductDetail() {
   const { id } = useParams();
@@ -14,7 +14,7 @@ function ProductDetail() {
       try {
         setIsLoading(true);
 
-        const response = await Client.get(`/products/${id}`);
+        const response = await apiclient.get(`/products/${id}`);
 
         setProduct(response.data.data);
       } catch (error) {
@@ -38,14 +38,14 @@ function ProductDetail() {
   const handleBuyNow = async () => {
     try {
       // 1. Buat order
-      const orderResponse = await Client.post("/orders", {
+      const orderResponse = await apiclient.post("/orders", {
         product_id: product.id,
       });
 
       const orderId = orderResponse.data.data.id;
 
       // 2. Buat payment
-      const paymentResponse = await Client.post(`/orders/${orderId}/payment`);
+      const paymentResponse = await apiclient.post(`/orders/${orderId}/payment`);
 
       // 3. Ambil Snap Token
       const snapToken = paymentResponse.data.data.snap_token;
@@ -74,7 +74,7 @@ function ProductDetail() {
   };
   const handleAddToCart = async () => {
     try {
-      const response = await Client.post("/carts", {
+      const response = await apiclient.post("/carts", {
         product_id: product.id,
       });
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import ProductCard from "../components/molecules/ProductCard";
-import Client from "../api/Client";
+import apiclient from "../api/client";
 
 import product1 from "../assets/images/Trending1.png";
 import product2 from "../assets/images/Trending2.png";
@@ -20,7 +20,7 @@ function Products() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [productsResponse, categoriesResponse] = await Promise.all([Client.get("/products"), Client.get("/categories")]);
+        const [productsResponse, categoriesResponse] = await Promise.all([apiclient.get("/products"), apiclient.get("/categories")]);
 
         setProducts(productsResponse.data.data);
         setCategories(categoriesResponse.data.data);

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Client from "../api/Client";
+import apiclient from "../api/client";
 
 function Cart() {
   const [carts, setCarts] = useState([]);
@@ -9,7 +9,7 @@ function Cart() {
   useEffect(() => {
     const fetchCarts = async () => {
       try {
-        const response = await Client.get("/carts");
+        const response = await apiclient.get("/carts");
 
         setCarts(response.data.data);
       } catch (error) {
@@ -25,7 +25,7 @@ function Cart() {
   // Menghapus produk dari cart
   const handleDelete = async (id) => {
     try {
-      await Client.delete(`/carts/${id}`);
+      await apiclient.delete(`/carts/${id}`);
 
       // Hapus item dari tampilan
       setCarts((prevCarts) => prevCarts.filter((cart) => cart.id !== id));
@@ -44,12 +44,12 @@ function Cart() {
   const handleCheckout = async () => {
     try {
       // 1. Buat order dari isi cart
-      const orderResponse = await Client.post("/orders/checkout-cart");
+      const orderResponse = await apiclient.post("/orders/checkout-cart");
 
       const orderId = orderResponse.data.data.id;
 
       // 2. Buat transaksi pembayaran Midtrans
-      const paymentResponse = await Client.post(`/orders/${orderId}/payment`);
+      const paymentResponse = await apiclient.post(`/orders/${orderId}/payment`);
 
       const snapToken = paymentResponse.data.data.snap_token;
 
